@@ -35,3 +35,6 @@ build/
 
 Gemfile.lock
 .idea/
+
+data/input/*.xml
+data/output/*.html
