@@ -1,10 +1,10 @@
 #!/usr/bin/env ruby
-require "thor"
-require_relative "lib/taxonomy_processor"
+require 'thor'
+require_relative 'lib/taxonomy_processor'
 
 class TrbConsole < Thor
 
-  desc "gen", "Generates html report files"
+  desc 'gen', 'Generates html report files'
 
   option :i,
          :banner => '[INPUT DIR]',
