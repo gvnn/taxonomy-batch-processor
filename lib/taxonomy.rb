@@ -23,14 +23,31 @@ class Taxonomy
     # search for node
     unless nodes.has_key?(id)
       nodes[id] = Node.new(id, parent_id, name, [])
+      # add child
+      unless parent_id.nil?
+        if nodes.has_key?(parent_id)
+          nodes[parent_id].add_child(id)
+        end
+      end
+      return true
     end
-    # add child
-    unless parent_id.nil?
-      if nodes.has_key?(parent_id)
-        nodes[parent_id].add_child(id)
+    false
+  end
+
+  def get(id)
+    unless nodes[id].nil?
+      return nodes[id]
+    end
+    nil
+  end
+
+  def parent(id)
+    unless nodes[id].nil?
+      unless nodes[nodes[id][:parent_id]].nil?
+        return nodes[nodes[id][:parent_id]]
       end
     end
-    true
+    nil
   end
 
   ##
