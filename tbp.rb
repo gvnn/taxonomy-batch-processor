@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 require "thor"
+require_relative "lib/taxonomy_processor"
 
 class TrbConsole < Thor
 
@@ -19,9 +20,19 @@ class TrbConsole < Thor
          :required => true,
          :desc => 'output directory'
 
+  option :t,
+         :banner => '[TAXONOMY FILE NAME]',
+         :default => 'taxonomy.xml',
+         :type => :string
+
+  option :d,
+         :banner => '[DESTINATIONS FILE NAME]',
+         :default => 'destinations.xml',
+         :type => :string
+
   def gen()
-    puts "input dir: #{options[:i]}" if options[:i]
-    puts "output dir: #{options[:o]}" if options[:o]
+    tbp = TaxonomyProcessor.new(options)
+    tbp.process_xml_files
   end
 
 end
