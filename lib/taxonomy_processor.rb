@@ -1,9 +1,10 @@
 require 'xml'
+require 'erb'
 require 'xslt'
 require 'logger'
 require 'fileutils'
 require_relative 'taxonomy'
-require_relative 'destination'
+require_relative 'destination_template'
 
 class TaxonomyProcessor
 
@@ -75,9 +76,9 @@ class TaxonomyProcessor
   def generate_file(atlas_id, xml)
     @logger.debug "Generating html for destination #{atlas_id}"
     begin
-      destination = Destination.new atlas_id, @taxonomy, @erb_renderer, @xslt_stylesheet
-      destination.parse_xml xml
-      destination.create_html @output_folder
+      template = DestinationTemplate.new atlas_id, @taxonomy, @erb_renderer, @xslt_stylesheet
+      template.parse_xml xml
+      template.create_html @output_folder
     rescue Exception => e
       @logger.error e
     end

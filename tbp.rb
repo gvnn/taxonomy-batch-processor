@@ -30,7 +30,7 @@ class TrbConsole < Thor
          :default => 'destinations.xml',
          :type => :string
 
-  def gen()
+  def gen
     tbp = TaxonomyProcessor.new(options)
     tbp.process_xml_files
   end

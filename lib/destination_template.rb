@@ -1,7 +1,6 @@
-require 'erb'
 require 'xml'
 
-class Destination
+class DestinationTemplate
   attr_reader :content
   attr_reader :destination
 

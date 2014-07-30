@@ -1,7 +1,7 @@
-require_relative '../lib/destination'
+require_relative '../lib/destination_template'
 require 'xslt'
 
-describe Destination do
+describe DestinationTemplate do
 
   XSLT_TEMPLATE = 'res/xslt/destination.xslt'
   ERB_TEMPLATE = 'res/templates/template.html.erb'
@@ -14,7 +14,7 @@ describe Destination do
 
     erb_renderer = double
     xslt_stylesheet = XSLT::Stylesheet.new(XML::Document.file(XSLT_TEMPLATE))
-    destination = Destination.new '0', taxonomy, erb_renderer, xslt_stylesheet
+    destination = DestinationTemplate.new '0', taxonomy, erb_renderer, xslt_stylesheet
     result = destination.parse_xml('<?xml version="1.0" encoding="utf-8"?>
 <destinations>
   <destination atlas_id="355064" asset_id="22614-4" title="Africa" title-ascii="Africa">
@@ -37,7 +37,7 @@ describe Destination do
 
     erb_renderer = ERB.new(File.read(ERB_TEMPLATE))
     xslt_stylesheet = double
-    destination = Destination.new '0', taxonomy, erb_renderer, xslt_stylesheet
+    destination = DestinationTemplate.new '0', taxonomy, erb_renderer, xslt_stylesheet
 
     expect { destination.render_template }.to_not raise_error
 
