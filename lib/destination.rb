@@ -9,7 +9,11 @@ class Destination
     @id = id
     @erb_renderer = erb_renderer
     @xslt_stylesheet = xslt_stylesheet
-    @taxonomy = taxonomy
+    @destination = {
+        :details => taxonomy.get(@id),
+        :parent => taxonomy.parent(@id),
+        :children => taxonomy.get_children(@id)
+    }
   end
 
   def parse_xml(xml)
@@ -26,17 +30,9 @@ class Destination
   end
 
   def create_html(output_folder)
-
-    @destination = {
-        :details => @taxonomy.get(@id),
-        :parent => @taxonomy.parent(@id),
-        :children => @taxonomy.get_children(@id)
-    }
-
     File.open(File.join(output_folder, "#{@id}.html"), "w") do |f|
       f << render_template
     end
-
   end
 
 end
